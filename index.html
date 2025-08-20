@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<!-- saved from url=(0035)https://nugget000.github.io/susto2/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistemos atnaujinimas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        /* Simple professional start screen */
+        #startScreen {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+        }
+
+        .container {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: #4a90e2;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            color: white;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+            line-height: 1.5;
+        }
+
+        .update-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.3em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .update-btn:hover {
+            background: #218838;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+        }
+
+        /* EXTREMELY SCARY HACK SCREEN */
+        #boomScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        #message {
+            font-family: 'Courier New', monospace;
+            font-size: clamp(1.5em, 6vw, 4em);
+            text-align: center;
+            font-weight: bold;
+            animation: terrorGlitch 0.15s infinite, bloodPulse 1.5s infinite;
+            z-index: 15;
+            position: relative;
+            text-shadow: 0 0 30px #ff0000;
+            line-height: 1.2;
+        }
+
+        @keyframes terrorGlitch {
+            0% { 
+                color: #ff0000;
+                transform: translate(0) scale(1);
+                text-shadow: 3px 3px #00ff00, -3px -3px #0000ff, 0 0 30px #ff0000;
+            }
+            10% { 
+                color: #ff6600;
+                transform: translate(-3px, 3px) scale(1.02);
+                text-shadow: -2px 2px #ff0000, 3px -3px #00ff00, 0 0 40px #ff0000;
+            }
+            20% { 
+                color: #00ff00;
+                transform: translate(3px, -3px) scale(0.98);
+                text-shadow: 2px -2px #ff0000, -3px 3px #0000ff, 0 0 35px #00ff00;
+            }
+            30% { 
+                color: #ffff00;
+                transform: translate(-2px, -2px) scale(1.03);
+                text-shadow: 4px 4px #ff0000, -2px -2px #00ff00, 0 0 45px #ffff00;
+            }
+            40% { 
+                color: #ff0066;
+                transform: translate(4px, 2px) scale(0.97);
+                text-shadow: -3px 3px #00ff00, 2px -2px #0000ff, 0 0 50px #ff0066;
+            }
+            50% { 
+                color: #0000ff;
+                transform: translate(-1px, 4px) scale(1.01);
+                text-shadow: 3px -3px #ff0000, -4px 4px #ffff00, 0 0 40px #0000ff;
+            }
+            60% { 
+                color: #ff3300;
+                transform: translate(2px, -1px) scale(1.04);
+                text-shadow: -2px -2px #00ff00, 3px 3px #0000ff, 0 0 60px #ff3300;
+            }
+            70% { 
+                color: #66ff00;
+                transform: translate(-4px, 1px) scale(0.96);
+                text-shadow: 4px -4px #ff0000, -1px 1px #0000ff, 0 0 35px #66ff00;
+            }
+            80% { 
+                color: #ff0099;
+                transform: translate(1px, -4px) scale(1.02);
+                text-shadow: -3px 2px #ffff00, 2px -3px #00ff00, 0 0 55px #ff0099;
+            }
+            90% { 
+                color: #00ffff;
+                transform: translate(3px, 3px) scale(0.99);
+                text-shadow: 2px 2px #ff0000, -4px -4px #ff0066, 0 0 45px #00ffff;
+            }
+            100% { 
+                color: #ff0000;
+                transform: translate(0) scale(1);
+                text-shadow: 3px 3px #00ff00, -3px -3px #0000ff, 0 0 30px #ff0000;
+            }
+        }
+
+        @keyframes bloodPulse {
+            0%, 100% { 
+                opacity: 1;
+                filter: brightness(1) contrast(1);
+            }
+            25% { 
+                opacity: 0.3;
+                filter: brightness(1.5) contrast(1.8);
+            }
+            50% { 
+                opacity: 0.8;
+                filter: brightness(0.7) contrast(2);
+            }
+            75% { 
+                opacity: 0.5;
+                filter: brightness(1.3) contrast(1.5);
+            }
+        }
+
+        @keyframes violentShake {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            5% { transform: translate(-15px, -15px) rotate(-2deg) scale(1.05); }
+            10% { transform: translate(15px, -15px) rotate(2deg) scale(0.95); }
+            15% { transform: translate(-15px, 15px) rotate(-1deg) scale(1.03); }
+            20% { transform: translate(15px, 15px) rotate(3deg) scale(0.97); }
+            25% { transform: translate(-20px, -10px) rotate(-3deg) scale(1.08); }
+            30% { transform: translate(20px, -10px) rotate(1deg) scale(0.92); }
+            35% { transform: translate(-10px, 20px) rotate(-2deg) scale(1.06); }
+            40% { transform: translate(10px, 20px) rotate(2deg) scale(0.94); }
+            45% { transform: translate(-25px, -5px) rotate(-4deg) scale(1.1); }
+            50% { transform: translate(25px, -5px) rotate(4deg) scale(0.9); }
+            55% { transform: translate(-5px, 25px) rotate(-1deg) scale(1.07); }
+            60% { transform: translate(5px, 25px) rotate(3deg) scale(0.93); }
+            65% { transform: translate(-18px, -18px) rotate(-2deg) scale(1.04); }
+            70% { transform: translate(18px, -18px) rotate(2deg) scale(0.96); }
+            75% { transform: translate(-18px, 18px) rotate(-3deg) scale(1.09); }
+            80% { transform: translate(18px, 18px) rotate(1deg) scale(0.91); }
+            85% { transform: translate(-12px, -12px) rotate(-1deg) scale(1.02); }
+            90% { transform: translate(12px, -12px) rotate(2deg) scale(0.98); }
+            95% { transform: translate(-8px, 8px) rotate(-1deg) scale(1.01); }
+        }
+
+        .gifContainer {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            pointer-events: none;
+            animation: violentShake 0.2s infinite, terrorSpin 3s infinite;
+            z-index: 12;
+            filter: brightness(1.5) contrast(2) saturate(2);
+        }
+
+        @keyframes terrorSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(90deg) scale(1.3); }
+            50% { transform: rotate(180deg) scale(0.7); }
+            75% { transform: rotate(270deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        /* Creepy scan lines */
+        #boomScreen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 1px,
+                rgba(255, 0, 0, 0.08) 1px,
+                rgba(255, 0, 0, 0.08) 3px
+            );
+            animation: fastScan 0.05s linear infinite;
+            z-index: 13;
+        }
+
+        @keyframes fastScan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(3px); }
+        }
+
+        /* Blood drip effect */
+        #boomScreen::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 10%, rgba(255,0,0,0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(255,0,0,0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 80%, rgba(255,0,0,0.4) 0%, transparent 50%),
+                radial-gradient(ellipse at 60% 70%, rgba(255,0,0,0.3) 0%, transparent 50%);
+            animation: bloodEffect 1s infinite;
+            z-index: 11;
+        }
+
+        @keyframes bloodEffect {
+            0%, 100% { opacity: 0.6; filter: blur(2px); }
+            50% { opacity: 1; filter: blur(0px); }
+        }
+
+        /* Creepy cursor */
+        #boomScreen {
+            cursor: none !important;
+        }
+
+        #boomScreen * {
+            cursor: none !important;
+        }
+
+        /* Static noise overlay */
+        .static-noise {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0);
+            background-size: 20px 20px;
+            animation: staticNoise 0.1s infinite;
+            z-index: 14;
+        }
+
+        @keyframes staticNoise {
+            0% { transform: translate(0, 0); }
+            10% { transform: translate(-5px, -5px); }
+            20% { transform: translate(-10px, 5px); }
+            30% { transform: translate(5px, -10px); }
+            40% { transform: translate(-5px, 15px); }
+            50% { transform: translate(-10px, 5px); }
+            60% { transform: translate(15px, 0); }
+            70% { transform: translate(0, 10px); }
+            80% { transform: translate(-15px, 0); }
+            90% { transform: translate(10px, 5px); }
+            100% { transform: translate(5px, 0); }
+        }
+
+        /* Creepy floating text */
+        .floating-text {
+            position: absolute;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+            color: #ff0000;
+            animation: float 4s infinite, fadeInOut 2s infinite;
+            z-index: 10;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Simple professional start screen -->
+    <div id="startScreen">
+        <div class="container">
+            <div class="logo">🔄</div>
+            <h1>Sistemos atnaujinimas</h1>
+            <p class="subtitle">Jūsų sistemai yra kritinis saugos naujinimas. Spustelėkite žemiau, kad įdiegtumėte naujausius saugos pataisymus.</p>
+            
+            <button class="update-btn" onclick="startBoom()">
+                Įdiekite naujinimą
+            </button>
+        </div>
+    </div>
+
+    <!-- TERROR SCREEN -->
+    <div id="boomScreen">
+        <div class="static-noise"></div>
+        
+        <div id="message">
+            🚨 SLAPIEJI BANDITAI 🚨<br>
+            JŪSŲ SISTEMA PAŽEISTA<br>
+            VISI FAILAI UŽŠIFRUOTI<br>
+            NĖRA PABĖGIMO...
+        </div>
+
+        <!-- Floating creepy texts -->
+        <div class="floating-text" style="top: 10%; left: 20%;">KLAIDA KLAIDA KLAIDA</div>
+        <div class="floating-text" style="top: 80%; right: 15%;">SISTEMOS GEDIMAS</div>
+        <div class="floating-text" style="top: 40%; left: 10%;">PRIEIGA NELEISTINA</div>
+        <div class="floating-text" style="top: 60%; right: 25%;">MIRTINGA KLAIDA</div>
+
+        <!-- GIFs with enhanced terror -->
+        <img src="./System Update Required_files/susto1.gif" class="gifContainer" id="gif1">
+        <img src="./System Update Required_files/susto2.gif" class="gifContainer" id="gif2">
+        <img src="./System Update Required_files/susto3.gif" class="gifContainer" id="gif3">
+        <img src="./System Update Required_files/susto4.gif" class="gifContainer" id="gif4">
+    </div>
+
+    <!-- Audio -->
+    <audio id="sustoAudio" loop="">
+        <source src="susto.mp3" type="audio/mpeg">
+        Your browser does not support audio.
+    </audio>
+
+    <script>
+        const audio = document.getElementById('sustoAudio');
+        const gifs = [
+            document.getElementById('gif1'),
+            document.getElementById('gif2'),
+            document.getElementById('gif3'),
+            document.getElementById('gif4')
+        ];
+
+        let colors = ["#000000", "#330000", "#660000", "#800000", "#ff0000", "#cc0000"];
+        let colorIndex = 0;
+        let terrorMode = false;
+
+        function goFullScreen() {
+            let el = document.documentElement;
+            if (el.requestFullscreen) el.requestFullscreen();
+            else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+            else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+            else if (el.msRequestFullscreen) el.msRequestFullscreen();
+        }
+
+        function moveGifs() {
+            gifs.forEach((gif, index) => {
+                let x = Math.random() * (window.innerWidth - 250);
+                let y = Math.random() * (window.innerHeight - 250);
+                gif.style.left = x + "px";
+                gif.style.top = y + "px";
+                
+                // Add random rotation
+                gif.style.transform = `rotate(${Math.random() * 360}deg) scale(${0.8 + Math.random() * 0.4})`;
+            });
+        }
+
+        function changeBackgroundColor() {
+            if (terrorMode) {
+                document.getElementById('boomScreen').style.backgroundColor = colors[colorIndex];
+                colorIndex = (colorIndex + 1) % colors.length;
+            }
+        }
+
+        function addRandomGlitches() {
+            const message = document.getElementById('message');
+            const originalText = message.innerHTML;
+            
+            // Random text corruption
+            if (Math.random() < 0.3) {
+                const corruptedText = originalText.replace(/[A-Z]/g, () => {
+                    return Math.random() < 0.1 ? String.fromCharCode(33 + Math.floor(Math.random() * 94)) : arguments[0];
+                });
+                message.innerHTML = corruptedText;
+                
+                setTimeout(() => {
+                    message.innerHTML = originalText;
+                }, 100);
+            }
+        }
+
+        function createScreenDistortion() {
+            const boomScreen = document.getElementById('boomScreen');
+            
+            // Random screen shake intensity
+            const shakeIntensity = 5 + Math.random() * 15;
+            boomScreen.style.transform = `translate(${(Math.random() - 0.5) * shakeIntensity}px, ${(Math.random() - 0.5) * shakeIntensity}px)`;
+            
+            setTimeout(() => {
+                boomScreen.style.transform = 'translate(0, 0)';
+            }, 50);
+        }
+
+        function startBoom() {
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('boomScreen').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            terrorMode = true;
+
+            // Maximum terror effects
+            goFullScreen();
+            
+            // Ultra fast movements and changes
+            setInterval(moveGifs, 150);
+            setInterval(changeBackgroundColor, 80);
+            setInterval(addRandomGlitches, 200);
+            setInterval(createScreenDistortion, 100);
+
+            // Audio with multiple attempts
+            function tryPlay() {
+                audio.volume = 0.8;
+                audio.play().catch(() => {});
+            }
+            
+            tryPlay();
+            document.body.addEventListener('click', tryPlay);
+            document.body.addEventListener('keydown', tryPlay);
+            document.body.addEventListener('mousemove', tryPlay);
+            document.body.addEventListener('touchstart', tryPlay);
+
+            // Complete lockdown
+            document.addEventListener("keydown", function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                // Add extra screen shake when trying to press keys
+                createScreenDistortion();
+                return false;
+            }, true);
+
+            document.addEventListener("contextmenu", function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }, true);
+
+            // Prevent tab switching
+            document.addEventListener("visibilitychange", function() {
+                if (document.hidden) {
+                    document.title = "🚨 SLAPIEJI BANDITAI 🚨";
+                } else {
+                    document.title = "🚨 SLAPIEJI BANDITAI 🚨";
+                }
+            });
+
+            // Extreme screen shake
+            document.body.style.animation = 'violentShake 0.1s infinite';
+            
+            // Change page title constantly
+            const titles = [
+                "🚨 SLAPIEJI BANDITAI 🚨",
+            ];
+            
+            let titleIndex = 0;
+            setInterval(() => {
+                document.title = titles[titleIndex];
+                titleIndex = (titleIndex + 1) % titles.length;
+            }, 500);
+        }
+
+        // Prevent easy escape
+        window.addEventListener('beforeunload', function (e) {
+            if (terrorMode) {
+                e.preventDefault();
+                e.returnValue = '🚨 SISTEMA UŽRAKINTA – PABĖGTI NEGALIMA🚨';
+                return '🚨 SISTEMA UŽRAKINTA – PABĖGTI NEGALIMA 🚨';
+            }
+        });
+
+        // Prevent F5 refresh
+        document.addEventListener('keydown', function(e) {
+            if (terrorMode && e.key === 'F5') {
+                e.preventDefault();
+                createScreenDistortion();
+            }
+        });
+    </script>
+
+</body></html>
